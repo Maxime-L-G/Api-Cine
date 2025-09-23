@@ -12,7 +12,6 @@ export const listFilms = async (req, res) => {
 }
 
 // TODO: récupérer un film par id
-
 export const getFilm = async (req, res) => {
   try {
     const  films = await filmsServices.getFilmById(req.params.id)
