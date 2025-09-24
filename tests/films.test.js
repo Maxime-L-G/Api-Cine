@@ -1,5 +1,4 @@
 import { jest } from "@jest/globals";
-import { listFilms } from "../src/services/filmsServices.js";
 
 jest.unstable_mockModule("../src/services/filmsServices.js", () => ({
   listFilms: jest.fn(),
