@@ -1,8 +1,9 @@
-import { jest } from "@jest/globals";
+import { expect, it, jest } from "@jest/globals";
 
 jest.unstable_mockModule("../src/services/filmsServices.js", () => ({
   listFilms: jest.fn(),
   createFilm: jest.fn(),
+  deleteFilm: jest.fn()
 }));
 
 const { default: request } = await import("supertest");
@@ -40,4 +41,17 @@ describe("Films", () => {
     expect(res.body).toHaveProperty("genre", "Shonen");
     expect(res.body).toHaveProperty("id");
   });
+
+  it("DELETE /films -> film deleted", async () => {
+    const filmId = 1;
+    const deletedFilm = { id: filmId };
+
+    filmServices.deleteFilm.mockResolvedValue(deletedFilm);
+
+    const res = await request(app).delete("/films/${filmId}");
+
+    expect(res.statusCode).toBe(200);
+    expect(res.body).toEqual(deletedFilm);
+
+  })
 });
