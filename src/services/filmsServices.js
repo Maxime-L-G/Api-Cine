@@ -2,7 +2,7 @@
 import { pool } from "../db.js";
 export async function listFilms({ limit = 50, offset = 0 } = {}) {
   const { rows } = await pool.query(
-    "SELECT * FROM films"
+    "SELECT * FROM films ORDER BY id LIMIT $1 OFFSET $2", [limit, offset]
   );
   return rows;
 }
